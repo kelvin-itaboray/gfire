@@ -181,7 +181,7 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
         u = new Usuario(this, rootPaneCheckingEnabled);
         u.setResizable(false);
         u.setVisible(true);
-        //
+        //huehuebrbr
     }//GEN-LAST:event_btUsuarioActionPerformed
 
     private void btContasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btContasActionPerformed
