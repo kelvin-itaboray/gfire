@@ -13,7 +13,7 @@ import modelo.Usuario;
 public class ControleUsuario {
 
     public boolean adicionarUsuario(Usuario cadUsuario) {
-        String SQL = "INSERT INTO funcionario (nome,senha,telefone, isAdmin) VALUES(?, ?, ?, 0)";
+        String SQL = "INSERT INTO usuario (nome,senha,telefone, isAdmin) VALUES(?, ?, ?, 0)";
         Connection conn = null;
         PreparedStatement pst = null;
         try {
@@ -53,7 +53,7 @@ public class ControleUsuario {
         return true;
     }
 
-    public boolean removerFuncionario(Usuario remUsuario) {
+    public boolean removerUsuario(Usuario remUsuario) {
         String SQL = "delete from funcionario where id_funcionario=?";
         Connection conn = null;
         PreparedStatement pst = null;
