@@ -6,6 +6,7 @@
 package visao;
 
 import controle.ControleUsuario;
+import modelo.Usuario;
 import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.table.DefaultTableModel;
@@ -30,7 +31,7 @@ public class UsuarioPrincipal extends javax.swing.JDialog {
 
     public void tabela() {
         ControleUsuario cU = new ControleUsuario();
-        ArrayList<modelo.Usuario> u = cU.getUsuarios();
+        ArrayList<Usuario> u = cU.getUsuarios();
 
         DefaultTableModel modelo = (DefaultTableModel) tbUsuario.getModel();
         int t = modelo.getRowCount();
@@ -175,19 +176,31 @@ public class UsuarioPrincipal extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
-        if (tbUsuario.getSelectedRow() != -1) {
             UsuarioCadastro cU = new UsuarioCadastro();
             JDialog cUD = new JDialog(cU, rootPaneCheckingEnabled);
             cUD.setBounds(cU.getBounds());
             cUD.add(cU.getContentPane());
-            cUD.setTitle("Cadastrar Conta");
+            cUD.setTitle("Cadastrar Usuário");
             cUD.setResizable(false);
             cUD.setVisible(true);
-        }
     }//GEN-LAST:event_btCadastrarActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-        // TODO add your handling code here:
+        if (tbUsuario.getSelectedRow() != -1) {
+            ControleUsuario conU = new ControleUsuario();
+            Usuario u = conU.getUsuario(tbUsuario.getSelectedRow());
+            
+            UsuarioCadastro cU = new UsuarioCadastro();
+            JDialog cUD = new JDialog(cU, rootPaneCheckingEnabled);
+            cUD.setBounds(cU.getBounds());
+            cUD.add(cU.getContentPane());
+            cUD.setTitle("Alterar Usuário");
+            cUD.setResizable(false);
+            cUD.setVisible(true);
+            
+            cU.txtNome.setText(u.getNome());
+            cU.txtTelefone.setText(u.getTelefone());
+        }
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btDesativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDesativarActionPerformed

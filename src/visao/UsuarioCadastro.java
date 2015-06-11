@@ -177,10 +177,10 @@ public class UsuarioCadastro extends javax.swing.JFrame {
     private javax.swing.JLabel lbSenha;
     private javax.swing.JLabel lbTelefone;
     private javax.swing.JLabel lbTitulo;
-    private javax.swing.JPanel pUsuario;
-    private javax.swing.JPasswordField txtConfirmaSenha;
-    private javax.swing.JTextField txtNome;
-    private javax.swing.JPasswordField txtSenha;
-    private javax.swing.JTextField txtTelefone;
+    public javax.swing.JPanel pUsuario;
+    public javax.swing.JPasswordField txtConfirmaSenha;
+    public javax.swing.JTextField txtNome;
+    public javax.swing.JPasswordField txtSenha;
+    public javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }

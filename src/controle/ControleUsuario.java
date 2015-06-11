@@ -105,7 +105,7 @@ public class ControleUsuario {
     }
 
     public Usuario getUsuario(int id) {
-        String SQL = "SELECT * FROM usuario WHERE idUsuario = " + id;
+        String SQL = "SELECT idUsuario, nome, senha, telefone, statusU, isAdmin FROM usuario WHERE idUsuario = " + id;
         Connection conn;
         PreparedStatement pst = null;
         ResultSet tabela;
@@ -118,7 +118,7 @@ public class ControleUsuario {
                 user = new Usuario();
                 user.setIdUsuario(tabela.getInt(1));
                 user.setNome(tabela.getString(2));
-                user.setSenha(Integer.parseInt(tabela.getString(3)));
+                user.setSenha(tabela.getInt(3));
                 user.setTelefone(tabela.getString(4));
                 user.setStatus(tabela.getBoolean(5));
                 user.setIsAdmin(tabela.getBoolean(6));
