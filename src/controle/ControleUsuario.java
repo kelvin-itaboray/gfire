@@ -83,7 +83,8 @@ public class ControleUsuario {
             while (tabela.next()) {
                 Usuario usr = new Usuario();
                 usr.setIdUsuario(tabela.getInt(1));
-                usr.setNome(tabela.getString(3));
+                usr.setNome(tabela.getString(2));
+                usr.setSenha(tabela.getInt(3));
                 usr.setTelefone(tabela.getString(4));
                 usr.setStatus(tabela.getBoolean(5));
                 usr.setIsAdmin(tabela.getBoolean(6));

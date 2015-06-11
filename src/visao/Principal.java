@@ -19,9 +19,9 @@ import javax.swing.UIManager;
  */
 public class Principal extends javax.swing.JFrame implements ActionListener {
 
-    Usuario u = null;
-    Conta c = null;
-    Conta h = null;
+    UsuarioPrincipal u = null;
+    ContaPrincipal c = null;
+    ContaPrincipal h = null;
     Calendario cal = new Calendario();
     private javax.swing.Timer timer;
     
@@ -178,13 +178,13 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUsuarioActionPerformed
-        u = new Usuario(this, rootPaneCheckingEnabled);
+        u = new UsuarioPrincipal(this, rootPaneCheckingEnabled);
         u.setResizable(false);
         u.setVisible(true);
     }//GEN-LAST:event_btUsuarioActionPerformed
 
     private void btContasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btContasActionPerformed
-        c = new Conta(this, rootPaneCheckingEnabled);
+        c = new ContaPrincipal(this, rootPaneCheckingEnabled);
         c.setResizable(false);
         c.setVisible(true);
     }//GEN-LAST:event_btContasActionPerformed

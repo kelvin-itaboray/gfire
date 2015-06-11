@@ -3,23 +3,49 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package visao;
 
+import controle.ControleUsuario;
+import java.util.ArrayList;
 import javax.swing.JDialog;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Kelvin
  */
-public class Usuario extends javax.swing.JDialog {
+public class UsuarioPrincipal extends javax.swing.JDialog {
 
     /**
      * Creates new form Usuario
      */
-    public Usuario(java.awt.Frame parent, boolean modal) {
+    public UsuarioPrincipal() {
+    }
+
+    public UsuarioPrincipal(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        tabela();
+    }
+
+    public void tabela() {
+        ControleUsuario cU = new ControleUsuario();
+        ArrayList<modelo.Usuario> u = cU.getUsuarios();
+
+        DefaultTableModel modelo = (DefaultTableModel) tbUsuario.getModel();
+        int t = modelo.getRowCount();
+        for (int i = 0; i < t; i++) {
+            modelo.removeRow(0);
+        }
+
+        for (int i = 0; i < u.size(); i++) {
+            String v[] = new String[3];
+            v[0] = u.get(i).getIdUsuario() + "";
+            v[1] = u.get(i).getNome();
+            v[2] = u.get(i).getTelefone();
+            modelo.addRow(v);
+        }
+        tbUsuario.setModel(modelo);
     }
 
     /**
@@ -36,8 +62,8 @@ public class Usuario extends javax.swing.JDialog {
         btCadastrar = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
         btDesativar = new javax.swing.JButton();
-        spConta = new javax.swing.JScrollPane();
-        tbConta = new javax.swing.JTable();
+        spUsuario = new javax.swing.JScrollPane();
+        tbUsuario = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -65,7 +91,7 @@ public class Usuario extends javax.swing.JDialog {
             }
         });
 
-        tbConta.setModel(new javax.swing.table.DefaultTableModel(
+        tbUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -88,12 +114,12 @@ public class Usuario extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tbConta.getTableHeader().setReorderingAllowed(false);
-        spConta.setViewportView(tbConta);
-        if (tbConta.getColumnModel().getColumnCount() > 0) {
-            tbConta.getColumnModel().getColumn(0).setResizable(false);
-            tbConta.getColumnModel().getColumn(1).setResizable(false);
-            tbConta.getColumnModel().getColumn(2).setResizable(false);
+        tbUsuario.getTableHeader().setReorderingAllowed(false);
+        spUsuario.setViewportView(tbUsuario);
+        if (tbUsuario.getColumnModel().getColumnCount() > 0) {
+            tbUsuario.getColumnModel().getColumn(0).setResizable(false);
+            tbUsuario.getColumnModel().getColumn(1).setResizable(false);
+            tbUsuario.getColumnModel().getColumn(2).setResizable(false);
         }
 
         javax.swing.GroupLayout pUsuarioLayout = new javax.swing.GroupLayout(pUsuario);
@@ -112,7 +138,7 @@ public class Usuario extends javax.swing.JDialog {
                             .addComponent(btAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btDesativar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                        .addComponent(spConta, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49))))
         );
         pUsuarioLayout.setVerticalGroup(
@@ -129,7 +155,7 @@ public class Usuario extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(btDesativar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 232, Short.MAX_VALUE))
-                    .addComponent(spConta))
+                    .addComponent(spUsuario))
                 .addGap(53, 53, 53))
         );
 
@@ -183,20 +209,20 @@ public class Usuario extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Usuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsuarioPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Usuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsuarioPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Usuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsuarioPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Usuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsuarioPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Usuario dialog = new Usuario(new javax.swing.JFrame(), true);
+                UsuarioPrincipal dialog = new UsuarioPrincipal(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -214,7 +240,7 @@ public class Usuario extends javax.swing.JDialog {
     private javax.swing.JButton btDesativar;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JPanel pUsuario;
-    private javax.swing.JScrollPane spConta;
-    private javax.swing.JTable tbConta;
+    private javax.swing.JScrollPane spUsuario;
+    private javax.swing.JTable tbUsuario;
     // End of variables declaration//GEN-END:variables
 }

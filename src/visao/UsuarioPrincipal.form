@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
@@ -54,7 +54,7 @@
                               <Component id="btDesativar" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace pref="14" max="32767" attributes="0"/>
-                          <Component id="spConta" min="-2" pref="634" max="-2" attributes="0"/>
+                          <Component id="spUsuario" min="-2" pref="634" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -76,7 +76,7 @@
                           <Component id="btDesativar" min="-2" pref="67" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="232" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="spConta" max="32767" attributes="0"/>
+                      <Component id="spUsuario" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
               </Group>
@@ -116,14 +116,14 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btDesativarActionPerformed"/>
           </Events>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="spConta">
+        <Container class="javax.swing.JScrollPane" name="spUsuario">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tbConta">
+            <Component class="javax.swing.JTable" name="tbUsuario">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="3" rowCount="0">
