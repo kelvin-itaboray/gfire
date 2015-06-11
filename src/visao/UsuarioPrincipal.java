@@ -175,13 +175,15 @@ public class UsuarioPrincipal extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
-        UsuarioCadastro cU = new UsuarioCadastro();
-        JDialog cUD = new JDialog(cU, rootPaneCheckingEnabled);
-        cUD.setBounds(cU.getBounds());
-        cUD.add(cU.getContentPane());
-        cUD.setTitle("Cadastrar Conta");
-        cUD.setResizable(false);
-        cUD.setVisible(true);
+        if (tbUsuario.getSelectedRow() != -1) {
+            UsuarioCadastro cU = new UsuarioCadastro();
+            JDialog cUD = new JDialog(cU, rootPaneCheckingEnabled);
+            cUD.setBounds(cU.getBounds());
+            cUD.add(cU.getContentPane());
+            cUD.setTitle("Cadastrar Conta");
+            cUD.setResizable(false);
+            cUD.setVisible(true);
+        }
     }//GEN-LAST:event_btCadastrarActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
