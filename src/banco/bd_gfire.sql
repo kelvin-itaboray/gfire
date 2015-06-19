@@ -2,7 +2,7 @@ CREATE DATABASE bd_gfire;
 USE bd_gfire;
 
 CREATE TABLE Usuario (
-	idUsuario INT NOT NULL AUTO_INCREMENT,
+    idUsuario INT NOT NULL AUTO_INCREMENT,
     nome VARCHAR (100) NOT NULL,
     senha VARCHAR (100) NOT NULL,
     telefone VARCHAR (20) NOT NULL,
@@ -12,13 +12,13 @@ CREATE TABLE Usuario (
 );
 
 CREATE TABLE ContaFixa (
-	idContaFixa INT NOT NULL AUTO_INCREMENT,
+    idContaFixa INT NOT NULL AUTO_INCREMENT,
     tipo VARCHAR (100) NOT NULL,
     PRIMARY KEY (idContaFixa)
 );
 
 CREATE TABLE Conta (
-	idConta INT NOT NULL AUTO_INCREMENT,
+    idConta INT NOT NULL AUTO_INCREMENT,
     idUsuario INT NOT NULL,
     idContaFixa INT NOT NULL,
     tipo VARCHAR (100) NOT NULL,
@@ -26,12 +26,12 @@ CREATE TABLE Conta (
     dataVencimento DATETIME NOT NULL,
     pago BOOLEAN DEFAULT 0,
     PRIMARY KEY (idConta),
-	FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario),
+    FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario),
     FOREIGN KEY (idContaFixa) REFERENCES ContaFixa(idContaFixa)
 );
 
 CREATE TABLE Pagamento (
-	idPagamento INT NOT NULL AUTO_INCREMENT,
+    idPagamento INT NOT NULL AUTO_INCREMENT,
     idUsuario INT NOT NULL,
     idConta INT NOT NULL,
     statusP BOOLEAN NOT NULL,
