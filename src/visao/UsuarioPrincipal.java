@@ -173,9 +173,11 @@ public class UsuarioPrincipal extends javax.swing.JDialog {
         setSize(new java.awt.Dimension(816, 639));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    
+    
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
-        if (tbUsuario.getSelectedRow() != -1) {
+
             UsuarioCadastro cU = new UsuarioCadastro();
             JDialog cUD = new JDialog(cU, rootPaneCheckingEnabled);
             cUD.setBounds(cU.getBounds());
@@ -183,7 +185,6 @@ public class UsuarioPrincipal extends javax.swing.JDialog {
             cUD.setTitle("Cadastrar Conta");
             cUD.setResizable(false);
             cUD.setVisible(true);
-        }
     }//GEN-LAST:event_btCadastrarActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed

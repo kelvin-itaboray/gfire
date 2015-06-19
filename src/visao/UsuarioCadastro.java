@@ -6,6 +6,9 @@
 
 package visao;
 
+import controle.ControleUsuario;
+import modelo.Usuario;
+
 /**
  *
  * @author Kelvin
@@ -55,6 +58,11 @@ public class UsuarioCadastro extends javax.swing.JFrame {
         lbConfirmaSenha.setPreferredSize(new java.awt.Dimension(83, 20));
 
         jButton1.setText("Cadastrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         lbTelefone.setText("Telefone:");
         lbTelefone.setPreferredSize(new java.awt.Dimension(31, 20));
@@ -134,6 +142,19 @@ public class UsuarioCadastro extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    @SuppressWarnings("deprecation")
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        Usuario user = new Usuario();
+        ControleUsuario cUser = new ControleUsuario();
+        
+        user.setNome(txtNome.getText());
+        user.setSenha(txtSenha.getText());
+        user.setTelefone(txtTelefone.getText());
+        
+        cUser.adicionarUsuario(user);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

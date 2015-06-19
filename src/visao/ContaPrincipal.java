@@ -6,7 +6,12 @@
 
 package visao;
 
+import controle.ControleConta;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JDialog;
+import javax.swing.table.DefaultTableModel;
+import modelo.Conta;
 
 /**
  *
@@ -22,8 +27,33 @@ public class ContaPrincipal extends javax.swing.JDialog {
     public ContaPrincipal(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        tabela();
     }
+    
+     public void tabela() {
+        ControleConta cC = new ControleConta();
+        ArrayList<Conta> c = cC.getConta();
 
+        DefaultTableModel modelo = (DefaultTableModel) tbConta.getModel();
+        int t = modelo.getRowCount();
+        for (int i = 0; i < t; i++) {
+            modelo.removeRow(0);
+        }
+        
+        Date data = new Date(System.currentTimeMillis());
+        
+        for (int i = 0; i < c.size(); i++) {
+            String v[] = new String[3];
+            v[0] = c.get(i).getTipo();
+            v[1] = c.get(i).getIdUsuario() + "";
+            v[2] = c.get(i).getValor() + "";
+            v[3] = c.get(i).getDataVencimento();
+            v[4] = String.valueOf(data);
+            v[5] = "Não se sabe";
+            modelo.addRow(v);
+        }
+     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

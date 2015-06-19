@@ -13,7 +13,7 @@ package modelo;
 public class Usuario {
     private int idUsuario;
     private String nome;
-    private int senha;
+    private String senha;
     private String telefone;
     private boolean status;
     private boolean isAdmin;
@@ -49,14 +49,14 @@ public class Usuario {
     /**
      * @return the senha
      */
-    public int getSenha() {
+    public String getSenha() {
         return senha;
     }
 
     /**
      * @param senha the senha to set
      */
-    public void setSenha(int senha) {
+    public void setSenha(String senha) {
         this.senha = senha;
     }
 
