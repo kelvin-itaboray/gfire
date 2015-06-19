@@ -32,7 +32,6 @@ public class UsuarioPrincipal extends javax.swing.JDialog {
     public void tabela() {
         ControleUsuario cU = new ControleUsuario();
         ArrayList<Usuario> u = cU.getUsuarios();
-
         DefaultTableModel modelo = (DefaultTableModel) tbUsuario.getModel();
         int t = modelo.getRowCount();
         for (int i = 0; i < t; i++) {
@@ -188,18 +187,17 @@ public class UsuarioPrincipal extends javax.swing.JDialog {
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
         if (tbUsuario.getSelectedRow() != -1) {
             ControleUsuario conU = new ControleUsuario();
-            Usuario u = conU.getUsuario(tbUsuario.getSelectedRow());
-            
+            Usuario u = conU.getUsuario(Integer.parseInt(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 0)+""));
             UsuarioCadastro cU = new UsuarioCadastro();
+            cU.txtNome.setText(u.getNome());
+            cU.txtTelefone.setText(u.getTelefone());
+            
             JDialog cUD = new JDialog(cU, rootPaneCheckingEnabled);
             cUD.setBounds(cU.getBounds());
             cUD.add(cU.getContentPane());
             cUD.setTitle("Alterar Usuário");
             cUD.setResizable(false);
             cUD.setVisible(true);
-            
-            cU.txtNome.setText(u.getNome());
-            cU.txtTelefone.setText(u.getTelefone());
         }
     }//GEN-LAST:event_btAlterarActionPerformed
 
