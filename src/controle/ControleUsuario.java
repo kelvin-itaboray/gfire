@@ -12,17 +12,16 @@ import modelo.Usuario;
 
 public class ControleUsuario {
 
-    public boolean adicionarUsuario(Usuario cadUsuario) {
-        String SQL = "INSERT INTO usuario (nome,senha,telefone, isAdmin) VALUES(?, ?, ?, 0)";
+        public boolean adicionarUsuario(Usuario cadUsuario) {
+        String SQL = "INSERT INTO usuario (nome,senha,telefone) VALUES(?, ?, ?)";
         Connection conn = null;
         PreparedStatement pst = null;
         try {
             conn = Conexao.getConexao();
             pst = conn.prepareStatement(SQL);
             pst.setString(1, cadUsuario.getNome());
-            pst.setString(2, Integer.toString(cadUsuario.getSenha()));
+            pst.setString(2, cadUsuario.getSenha());
             pst.setString(3, cadUsuario.getTelefone());
-            pst.setBoolean(4,cadUsuario.isIsAdmin());
             pst.executeUpdate();
             pst = null;
         } catch (SQLException e) {
@@ -41,7 +40,7 @@ public class ControleUsuario {
             conn = Conexao.getConexao();
             pst = conn.prepareStatement(SQL);
             pst.setString (1, altUsuario.getNome());
-            pst.setString (2, Integer.toString(altUsuario.getSenha()));
+            pst.setString (2, altUsuario.getSenha());
             pst.setString (3, altUsuario.getTelefone());
             pst.setBoolean(4, altUsuario.isStatus());
             pst.setBoolean(5, altUsuario.isIsAdmin());
@@ -54,7 +53,7 @@ public class ControleUsuario {
     }
 
     public boolean removerUsuario(Usuario remUsuario) {
-        String SQL = "delete from funcionario where id_funcionario=?";
+        String SQL = "DELETE FROM funcionario WHERE id_funcionario=?";
         Connection conn = null;
         PreparedStatement pst = null;
         try {
@@ -84,7 +83,7 @@ public class ControleUsuario {
                 Usuario usr = new Usuario();
                 usr.setIdUsuario(tabela.getInt(1));
                 usr.setNome(tabela.getString(2));
-                usr.setSenha(tabela.getInt(3));
+                usr.setSenha(tabela.getString(3));
                 usr.setTelefone(tabela.getString(4));
                 usr.setStatus(tabela.getBoolean(5));
                 usr.setIsAdmin(tabela.getBoolean(6));
@@ -118,7 +117,7 @@ public class ControleUsuario {
                 user = new Usuario();
                 user.setIdUsuario(tabela.getInt(1));
                 user.setNome(tabela.getString(2));
-                user.setSenha(tabela.getInt(3));
+                user.setSenha(tabela.getString(3));
                 user.setTelefone(tabela.getString(4));
                 user.setStatus(tabela.getBoolean(5));
                 user.setIsAdmin(tabela.getBoolean(6));

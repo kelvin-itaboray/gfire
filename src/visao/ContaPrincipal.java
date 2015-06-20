@@ -3,10 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package visao;
 
+import controle.ControleConta;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JDialog;
+import javax.swing.table.DefaultTableModel;
+import modelo.Conta;
 
 /**
  *
@@ -18,10 +22,35 @@ public class ContaPrincipal extends javax.swing.JDialog {
      * Creates new form Usuario
      */
     ContaCadastro cC = null;
-    
+
     public ContaPrincipal(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        tabela();
+    }
+
+    public void tabela() {
+        ControleConta conC = new ControleConta();
+        ArrayList<Conta> c = conC.getConta();
+
+        DefaultTableModel modelo = (DefaultTableModel) tbConta.getModel();
+        int t = modelo.getRowCount();
+        for (int i = 0; i < t; i++) {
+            modelo.removeRow(0);
+        }
+
+        Date data = new Date(System.currentTimeMillis());
+
+        for (int i = 0; i < c.size(); i++) {
+            String v[] = new String[3];
+            v[0] = c.get(i).getTipo();
+            v[1] = c.get(i).getIdUsuario() + "";
+            v[2] = c.get(i).getValor() + "";
+            v[3] = c.get(i).getDataVencimento();
+            v[4] = String.valueOf(data);
+            v[5] = "Não se sabe";
+            modelo.addRow(v);
+        }
     }
 
     /**

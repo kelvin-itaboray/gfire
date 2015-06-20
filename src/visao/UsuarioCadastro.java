@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package visao;
+
+import controle.ControleUsuario;
+import modelo.Usuario;
 
 /**
  *
@@ -33,7 +35,7 @@ public class UsuarioCadastro extends javax.swing.JFrame {
         lbNome = new javax.swing.JLabel();
         lbSenha = new javax.swing.JLabel();
         lbConfirmaSenha = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btCadastrar = new javax.swing.JButton();
         txtNome = new javax.swing.JTextField();
         txtSenha = new javax.swing.JPasswordField();
         txtConfirmaSenha = new javax.swing.JPasswordField();
@@ -54,7 +56,12 @@ public class UsuarioCadastro extends javax.swing.JFrame {
         lbConfirmaSenha.setText("Confirmar senha:");
         lbConfirmaSenha.setPreferredSize(new java.awt.Dimension(83, 20));
 
-        jButton1.setText("Cadastrar");
+        btCadastrar.setText("Cadastrar");
+        btCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCadastrarActionPerformed(evt);
+            }
+        });
 
         lbTelefone.setText("Telefone:");
         lbTelefone.setPreferredSize(new java.awt.Dimension(31, 20));
@@ -91,7 +98,7 @@ public class UsuarioCadastro extends javax.swing.JFrame {
                         .addGap(130, 130, 130))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pUsuarioLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pUsuarioLayout.setVerticalGroup(
@@ -116,7 +123,7 @@ public class UsuarioCadastro extends javax.swing.JFrame {
                     .addComponent(lbTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -138,6 +145,17 @@ public class UsuarioCadastro extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
+        Usuario user = new Usuario();
+        ControleUsuario cUser = new ControleUsuario();
+
+        user.setNome(txtNome.getText());
+        user.setSenha(txtSenha.getText());
+        user.setTelefone(txtTelefone.getText());
+
+        cUser.adicionarUsuario(user);
+    }//GEN-LAST:event_btCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,7 +193,7 @@ public class UsuarioCadastro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btCadastrar;
     private javax.swing.JLabel lbConfirmaSenha;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbSenha;

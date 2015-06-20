@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package visao;
+
+import controle.ControleConta;
+import javax.swing.JOptionPane;
+import modelo.Conta;
 
 /**
  *
@@ -78,7 +81,7 @@ public class ContaCadastro extends javax.swing.JFrame {
 
         txtFoto.setEnabled(false);
 
-        ftxtValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
+        ftxtValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
 
         btCadastrar.setText("Cadastrar");
         btCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -202,7 +205,20 @@ public class ContaCadastro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
-        // TODO add your handling code here:
+        ControleConta cConta = new ControleConta();
+        Conta conta = new Conta();
+
+        if (rbVariavel.isSelected()) {
+            conta.setTipo(txtConta.getText());
+            conta.setValor(Double.parseDouble(ftxtValor.getText()));
+            conta.setDataVencimento(txtData.getText());
+            cConta.adicionarConta(conta);
+        } else if (rbFixo.isSelected()) {
+            JOptionPane.showMessageDialog(null, "Não sei o que fazer!");
+            System.exit(1);
+        } else {
+            JOptionPane.showMessageDialog(null, "Informe um tipo de conta!");
+        }
     }//GEN-LAST:event_btCadastrarActionPerformed
 
     private void rbFixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFixoActionPerformed
