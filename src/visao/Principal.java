@@ -3,46 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package visao;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.UIManager;
-
+import modelo.Usuario;
 
 /**
  *
  * @author Kelvin
  */
-public class Principal extends javax.swing.JFrame implements ActionListener {
+public class Principal extends javax.swing.JFrame {
 
+    public static Usuario logado;
     UsuarioPrincipal u = null;
     ContaPrincipal c = null;
     ContaPrincipal h = null;
     Calendario cal = new Calendario();
-    private javax.swing.Timer timer;
-    
+
     public Principal() {
         initComponents();
         pCalendario.add(cal);
-        cal.setSize(390, 420);
-        disparaRelogio();
+        cal.setSize(390, 370);
     }
 
-    
-    public void disparaRelogio() {
-        if (timer == null) {
-            timer = new javax.swing.Timer(1000, this);
-            timer.setInitialDelay(0);
-            timer.start();
-        } else if (!timer.isRunning()) {
-            timer.restart();
-        }
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,15 +39,11 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
         btUsuario = new javax.swing.JButton();
         btContas = new javax.swing.JButton();
         lbTitulo = new javax.swing.JLabel();
-        lbDe1 = new javax.swing.JLabel();
-        lbDe2 = new javax.swing.JLabel();
-        lbDia = new javax.swing.JLabel();
-        lbMes = new javax.swing.JLabel();
-        lbAno = new javax.swing.JLabel();
         pCalendario = new javax.swing.JPanel();
+        lbLogado = new javax.swing.JLabel();
+        lbUsuario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         btUsuario.setText("Usuários");
         btUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -83,23 +62,6 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
         lbTitulo.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         lbTitulo.setText(" GFiRe - Gestor Financeiro de Repúblicas");
 
-        lbDe1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lbDe1.setText("de");
-
-        lbDe2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lbDe2.setText("de");
-
-        lbDia.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lbDia.setText("<Dia>");
-
-        lbMes.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lbMes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbMes.setText("<Mês>");
-        lbMes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        lbAno.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lbAno.setText("<Ano>");
-
         javax.swing.GroupLayout pCalendarioLayout = new javax.swing.GroupLayout(pCalendario);
         pCalendario.setLayout(pCalendarioLayout);
         pCalendarioLayout.setHorizontalGroup(
@@ -108,8 +70,14 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
         );
         pCalendarioLayout.setVerticalGroup(
             pCalendarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGap(0, 370, Short.MAX_VALUE)
         );
+
+        lbLogado.setFont(new java.awt.Font("Vrinda", 0, 18)); // NOI18N
+        lbLogado.setText(" Você está logado como:");
+
+        lbUsuario.setFont(new java.awt.Font("Vrinda", 0, 18)); // NOI18N
+        lbUsuario.setText(" <Usuário>");
 
         javax.swing.GroupLayout pPrincipalLayout = new javax.swing.GroupLayout(pPrincipal);
         pPrincipal.setLayout(pPrincipalLayout);
@@ -123,21 +91,13 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
                         .addGroup(pPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btContas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pPrincipalLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(lbDia)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbDe1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbMes, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbDe2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbAno, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pPrincipalLayout.createSequentialGroup()
+                        .addComponent(lbLogado, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pPrincipalLayout.setVerticalGroup(
@@ -145,21 +105,18 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
             .addGroup(pPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
+                .addGroup(pPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbLogado)
+                    .addComponent(lbUsuario))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pPrincipalLayout.createSequentialGroup()
                         .addComponent(btUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btContas, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbDia)
-                    .addComponent(lbDe1)
-                    .addComponent(lbMes)
-                    .addComponent(lbDe2)
-                    .addComponent(lbAno))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -216,62 +173,10 @@ public class Principal extends javax.swing.JFrame implements ActionListener {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btContas;
     private javax.swing.JButton btUsuario;
-    private javax.swing.JLabel lbAno;
-    private javax.swing.JLabel lbDe1;
-    private javax.swing.JLabel lbDe2;
-    private javax.swing.JLabel lbDia;
-    private javax.swing.JLabel lbMes;
+    private javax.swing.JLabel lbLogado;
     private javax.swing.JLabel lbTitulo;
+    public javax.swing.JLabel lbUsuario;
     private javax.swing.JPanel pCalendario;
     private javax.swing.JPanel pPrincipal;
     // End of variables declaration//GEN-END:variables
-
-    
-    
- public void actionPerformed(ActionEvent e) {
-        Date hora = new Date();
-        SimpleDateFormat dia = new SimpleDateFormat("dd");
-        SimpleDateFormat mes = new SimpleDateFormat("MM");
-        SimpleDateFormat ano = new SimpleDateFormat("yyyy");
-
-        lbDia.setText(dia.format(hora));
-        lbAno.setText(ano.format(hora));
-
-        if (mes.format(hora).equals("01")) {
-            lbMes.setText("Janeiro");
-        }
-        if (mes.format(hora).equals("02")) {
-            lbMes.setText("Fevereiro");
-        }
-        if (mes.format(hora).equals("03")) {
-            lbMes.setText("Março");
-        }
-        if (mes.format(hora).equals("04")) {
-            lbMes.setText("Abril");
-        }
-        if (mes.format(hora).equals("05")) {
-            lbMes.setText("Maio");
-        }
-        if (mes.format(hora).equals("06")) {
-            lbMes.setText("Junho");
-        }
-        if (mes.format(hora).equals("07")) {
-            lbMes.setText("Julho");
-        }
-        if (mes.format(hora).equals("08")) {
-            lbMes.setText("Agosto");
-        }
-        if (mes.format(hora).equals("09")) {
-            lbMes.setText("Setembro");
-        }
-        if (mes.format(hora).equals("10")) {
-            lbMes.setText("Outubro");
-        }
-        if (mes.format(hora).equals("11")) {
-            lbMes.setText("Novembro");
-        }
-        if (mes.format(hora).equals("12")) {
-            lbMes.setText("Dezembro");
-        }
-    }
 }

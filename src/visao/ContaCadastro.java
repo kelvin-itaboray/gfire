@@ -64,7 +64,7 @@ public class ContaCadastro extends javax.swing.JFrame {
         lbConta.setMinimumSize(new java.awt.Dimension(71, 20));
         lbConta.setPreferredSize(new java.awt.Dimension(71, 20));
 
-        lbValor.setText("Valo (R$)r:");
+        lbValor.setText("Valor (R$):");
         lbValor.setMaximumSize(new java.awt.Dimension(28, 20));
         lbValor.setMinimumSize(new java.awt.Dimension(28, 20));
         lbValor.setPreferredSize(new java.awt.Dimension(28, 20));
@@ -210,7 +210,7 @@ public class ContaCadastro extends javax.swing.JFrame {
 
         if (rbVariavel.isSelected()) {
             conta.setTipo(txtConta.getText());
-            conta.setValor(Double.parseDouble(ftxtValor.getText()));
+            conta.setValor(Double.parseDouble(ftxtValor.getText().replace(',', '.')));
             conta.setDataVencimento(txtData.getText());
             cConta.adicionarConta(conta);
         } else if (rbFixo.isSelected()) {

@@ -168,7 +168,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbValor">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Valo (R$)r:"/>
+            <Property name="text" type="java.lang.String" value="Valor (R$):"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[28, 20]"/>
             </Property>

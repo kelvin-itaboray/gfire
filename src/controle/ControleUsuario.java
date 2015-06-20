@@ -9,10 +9,9 @@ import modelo.Usuario;
  *
  * @author Carlosmcdo
  */
-
 public class ControleUsuario {
 
-        public boolean adicionarUsuario(Usuario cadUsuario) {
+    public boolean adicionarUsuario(Usuario cadUsuario) {
         String SQL = "INSERT INTO usuario (nome,senha,telefone) VALUES(?, ?, ?)";
         Connection conn = null;
         PreparedStatement pst = null;
@@ -30,18 +29,18 @@ public class ControleUsuario {
         }
         return true;
     }
-    
+
     public boolean alterarUsuario(Usuario altUsuario) {
         String SQL = "UPDATE usuario SET nome = ?, senha = ?, telefone = ?, statusU = ? "
-                     + "WHERE idUsuario = ?";
+                + "WHERE idUsuario = ?";
         Connection conn = null;
         PreparedStatement pst = null;
         try {
             conn = Conexao.getConexao();
             pst = conn.prepareStatement(SQL);
-            pst.setString (1, altUsuario.getNome());
-            pst.setString (2, altUsuario.getSenha());
-            pst.setString (3, altUsuario.getTelefone());
+            pst.setString(1, altUsuario.getNome());
+            pst.setString(2, altUsuario.getSenha());
+            pst.setString(3, altUsuario.getTelefone());
             pst.setBoolean(4, altUsuario.isStatus());
             pst.setInt(5, altUsuario.getIdUsuario());
             pst.executeUpdate();
@@ -69,12 +68,12 @@ public class ControleUsuario {
         return true;
     }
 
-    public ArrayList <Usuario> getUsuarios() {
+    public ArrayList<Usuario> getUsuarios() {
         String SQL = "SELECT idUsuario, nome, senha, telefone, statusU, isAdmin FROM usuario";
         Connection conn;
         PreparedStatement pst = null;
         ResultSet tabela;
-        ArrayList <Usuario> user = new ArrayList<>();
+        ArrayList<Usuario> user = new ArrayList<>();
         try {
             conn = Conexao.getConexao();
             pst = conn.prepareStatement(SQL);
@@ -105,6 +104,39 @@ public class ControleUsuario {
 
     public Usuario getUsuario(int id) {
         String SQL = "SELECT idUsuario, nome, senha, telefone, statusU, isAdmin FROM usuario WHERE idUsuario = " + id;
+        Connection conn;
+        PreparedStatement pst = null;
+        ResultSet tabela;
+        Usuario user = null;
+        try {
+            conn = Conexao.getConexao();
+            pst = conn.prepareStatement(SQL);
+            tabela = pst.executeQuery();
+            if (tabela.next()) {
+                user = new Usuario();
+                user.setIdUsuario(tabela.getInt(1));
+                user.setNome(tabela.getString(2));
+                user.setSenha(tabela.getString(3));
+                user.setTelefone(tabela.getString(4));
+                user.setStatus(tabela.getBoolean(5));
+                user.setIsAdmin(tabela.getBoolean(6));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro na conexão ao consultar: " + e.getMessage(), "ERRO", 0);
+        } finally {
+            if (pst != null) {
+                try {
+                    pst.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Erro ao fechar conexão: " + e.getMessage(), "ERRO", 0);
+                }
+            }
+        }
+        return user;
+    }
+
+    public Usuario getUsuarioByLogin(String nome, String senha) {
+        String SQL = "SELECT idUsuario, nome, senha, telefone, statusU, isAdmin FROM usuario WHERE nome = '" + nome + "' AND senha = '" + senha + "'";
         Connection conn;
         PreparedStatement pst = null;
         ResultSet tabela;

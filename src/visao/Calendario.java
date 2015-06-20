@@ -96,6 +96,7 @@ public final class Calendario extends javax.swing.JPanel {
                 arrayLb[diaH].setHorizontalTextPosition(JLabel.CENTER);
                 arrayLb[diaH].setVerticalTextPosition(JLabel.CENTER);
                 arrayLb[diaH].setForeground(Color.BLUE);
+                //arrayLb[diaH].set
                 arrayLb[diaH].setBackground(new java.awt.Color(30, 144, 255));
             }
         }
@@ -126,7 +127,7 @@ public final class Calendario extends javax.swing.JPanel {
             cbMesActionPerformed(evt);
         });
         add(cbMes);
-        cbMes.setBounds(250, 70, 110, 20);
+        cbMes.setBounds(250, 30, 110, 20);
 
         pCalendario.setBackground(new java.awt.Color(176, 196, 220));
         pCalendario.setLayout(null);
@@ -162,21 +163,21 @@ public final class Calendario extends javax.swing.JPanel {
         lbDom.setBounds(0, 0, 50, 20);
 
         add(pCalendario);
-        pCalendario.setBounds(20, 110, 350, 20);
+        pCalendario.setBounds(20, 60, 350, 20);
 
         pDia.setOpaque(false);
         add(pDia);
-        pDia.setBounds(20, 140, 350, 260);
+        pDia.setBounds(20, 90, 350, 260);
 
         lbMes.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
         lbMes.setText(" Mês:");
         add(lbMes);
-        lbMes.setBounds(200, 60, 170, 40);
+        lbMes.setBounds(200, 20, 170, 40);
 
         lbAno.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
         lbAno.setText(" Ano:");
         add(lbAno);
-        lbAno.setBounds(20, 60, 180, 40);
+        lbAno.setBounds(20, 20, 180, 40);
 
         /*lbTitulo.setFont(new java.awt.Font("Trebuchet MS", 0, 21));
         lbTitulo.setText(" Calendário:");
@@ -185,7 +186,7 @@ public final class Calendario extends javax.swing.JPanel {
 
         sAno.setModel(new javax.swing.SpinnerNumberModel(d.getYear() + 1900, 1960, 2099, 1));
         sAno.setEditor(new JSpinner.NumberEditor(sAno, "###0"));
-        sAno.setBounds(70, 70, 50, 20);
+        sAno.setBounds(70, 30, 50, 20);
         sAno.setEditor(new JSpinner.NumberEditor(sAno, "####"));
         ChangeListener listener = (ChangeEvent e) -> {
             calendario();
