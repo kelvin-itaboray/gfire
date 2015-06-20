@@ -64,7 +64,7 @@ public class ContaCadastro extends javax.swing.JFrame {
         lbConta.setMinimumSize(new java.awt.Dimension(71, 20));
         lbConta.setPreferredSize(new java.awt.Dimension(71, 20));
 
-        lbValor.setText("Valor:");
+        lbValor.setText("Valo (R$)r:");
         lbValor.setMaximumSize(new java.awt.Dimension(28, 20));
         lbValor.setMinimumSize(new java.awt.Dimension(28, 20));
         lbValor.setPreferredSize(new java.awt.Dimension(28, 20));
@@ -81,7 +81,7 @@ public class ContaCadastro extends javax.swing.JFrame {
 
         txtFoto.setEnabled(false);
 
-        ftxtValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
+        ftxtValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
 
         btCadastrar.setText("Cadastrar");
         btCadastrar.addActionListener(new java.awt.event.ActionListener() {

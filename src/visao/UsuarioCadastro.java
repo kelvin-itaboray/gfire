@@ -6,6 +6,7 @@
 package visao;
 
 import controle.ControleUsuario;
+import javax.swing.JOptionPane;
 import modelo.Usuario;
 
 /**
@@ -13,6 +14,8 @@ import modelo.Usuario;
  * @author Kelvin
  */
 public class UsuarioCadastro extends javax.swing.JFrame {
+
+    public int tipo;
 
     /**
      * Creates new form UsuarioCadastro
@@ -74,7 +77,7 @@ public class UsuarioCadastro extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pUsuarioLayout.createSequentialGroup()
-                        .addComponent(lbTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
                         .addGap(189, 189, 189))
                     .addGroup(pUsuarioLayout.createSequentialGroup()
                         .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,7 +98,7 @@ public class UsuarioCadastro extends javax.swing.JFrame {
                                 .addComponent(lbTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(130, 130, 130))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pUsuarioLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -154,7 +157,21 @@ public class UsuarioCadastro extends javax.swing.JFrame {
         user.setSenha(txtSenha.getText());
         user.setTelefone(txtTelefone.getText());
 
-        cUser.adicionarUsuario(user);
+        if (tipo == 0) {
+            if (cUser.adicionarUsuario(user)) {
+                JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!",
+                        "Cadastro", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            }
+        } else {
+            user.setIdUsuario(tipo);
+            user.setStatus(true);
+            if (cUser.alterarUsuario(user)) {
+                JOptionPane.showMessageDialog(null, "Usuário alterado com sucesso!",
+                        "Alteração", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            }
+        }
     }//GEN-LAST:event_btCadastrarActionPerformed
 
     /**
@@ -193,12 +210,12 @@ public class UsuarioCadastro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btCadastrar;
+    public javax.swing.JButton btCadastrar;
     private javax.swing.JLabel lbConfirmaSenha;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbSenha;
     private javax.swing.JLabel lbTelefone;
-    private javax.swing.JLabel lbTitulo;
+    public javax.swing.JLabel lbTitulo;
     public javax.swing.JPanel pUsuario;
     public javax.swing.JPasswordField txtConfirmaSenha;
     public javax.swing.JTextField txtNome;

@@ -175,22 +175,28 @@ public class UsuarioPrincipal extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
-            UsuarioCadastro cU = new UsuarioCadastro();
-            JDialog cUD = new JDialog(cU, rootPaneCheckingEnabled);
-            cUD.setBounds(cU.getBounds());
-            cUD.add(cU.getContentPane());
-            cUD.setTitle("Cadastrar Usuário");
-            cUD.setResizable(false);
-            cUD.setVisible(true);
+        UsuarioCadastro cU = new UsuarioCadastro();
+        cU.tipo = 0;
+        JDialog cUD = new JDialog(cU, rootPaneCheckingEnabled);
+        cUD.setBounds(cU.getBounds());
+        cUD.add(cU.getContentPane());
+        cUD.setTitle("Cadastrar Usuário");
+        cUD.setResizable(false);
+        cUD.setVisible(true);
+        tabela();
     }//GEN-LAST:event_btCadastrarActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
         if (tbUsuario.getSelectedRow() != -1) {
             ControleUsuario conU = new ControleUsuario();
-            Usuario u = conU.getUsuario(Integer.parseInt(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 0)+""));
+            Usuario u = conU.getUsuario(Integer.parseInt(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 0) + ""));
             UsuarioCadastro cU = new UsuarioCadastro();
+            
+            cU.tipo = u.getIdUsuario();
             cU.txtNome.setText(u.getNome());
             cU.txtTelefone.setText(u.getTelefone());
+            cU.lbTitulo.setText("Alterar Usuário");
+            cU.btCadastrar.setText("Alterar");
             
             JDialog cUD = new JDialog(cU, rootPaneCheckingEnabled);
             cUD.setBounds(cU.getBounds());
@@ -198,11 +204,13 @@ public class UsuarioPrincipal extends javax.swing.JDialog {
             cUD.setTitle("Alterar Usuário");
             cUD.setResizable(false);
             cUD.setVisible(true);
+            
+            tabela();
         }
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btDesativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDesativarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btDesativarActionPerformed
 
     /**

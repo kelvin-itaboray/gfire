@@ -43,7 +43,7 @@ public class ControleUsuario {
             pst.setString (2, altUsuario.getSenha());
             pst.setString (3, altUsuario.getTelefone());
             pst.setBoolean(4, altUsuario.isStatus());
-            pst.setBoolean(5, altUsuario.isIsAdmin());
+            pst.setInt(5, altUsuario.getIdUsuario());
             pst.executeUpdate();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro na conexão ao alterar: " + e.getMessage(), "ERRO", 0);
