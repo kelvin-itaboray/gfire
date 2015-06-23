@@ -155,22 +155,33 @@ public class UsuarioCadastro extends javax.swing.JFrame {
 
         user.setNome(txtNome.getText());
         user.setSenha(txtSenha.getText());
+        String confirmaSenha = txtConfirmaSenha.getText();
         user.setTelefone(txtTelefone.getText());
 
-        if (tipo == 0) {
-            if (cUser.adicionarUsuario(user)) {
-                JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!",
-                        "Cadastro", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
+        if (cUser.validarUsuario(user)) {
+            if (user.getSenha().equals(confirmaSenha)) {
+                if (tipo == 0) {
+                    if (cUser.adicionarUsuario(user)) {
+                        JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!",
+                                "Cadastro", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                    }
+                } else {
+                    user.setIdUsuario(tipo);
+                    user.setStatus(true);
+                    if (cUser.alterarUsuario(user)) {
+                        JOptionPane.showMessageDialog(null, "Usuário alterado com sucesso!",
+                                "Alteração", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Senha não é igual ao campo de confirmação!",
+                        "Erro!", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            user.setIdUsuario(tipo);
-            user.setStatus(true);
-            if (cUser.alterarUsuario(user)) {
-                JOptionPane.showMessageDialog(null, "Usuário alterado com sucesso!",
-                        "Alteração", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-            }
+            JOptionPane.showMessageDialog(null, "Existem campos inválidos!",
+                    "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btCadastrarActionPerformed
 

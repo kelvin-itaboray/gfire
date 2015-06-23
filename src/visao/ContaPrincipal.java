@@ -45,7 +45,7 @@ public class ContaPrincipal extends javax.swing.JDialog {
             String v[] = new String[6];
             v[0] = c.get(i).getNome();
             v[1] = c.get(i).getIdUsuario() + "";
-            v[2] = c.get(i).getValor() + "";
+            v[2] = "R$:"+c.get(i).getValor();
             v[3] = c.get(i).getDataVencimentoFormatado();
             v[4] = String.valueOf(data);
             if(c.get(i).isPago()){

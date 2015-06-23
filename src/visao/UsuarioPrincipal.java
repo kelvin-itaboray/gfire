@@ -9,6 +9,7 @@ import controle.ControleUsuario;
 import modelo.Usuario;
 import java.util.ArrayList;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -206,11 +207,27 @@ public class UsuarioPrincipal extends javax.swing.JDialog {
             cUD.setVisible(true);
             
             tabela();
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione um item da tabela primeiro!", "Atenção!", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btDesativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDesativarActionPerformed
-        
+        if (tbUsuario.getSelectedRow() != -1) {
+            ControleUsuario conU = new ControleUsuario();
+            Usuario u = conU.getUsuario(Integer.parseInt(tbUsuario.getValueAt(tbUsuario.getSelectedRow(), 0) + ""));
+            if(u.getIdUsuario() != 1){
+                if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja desativar este usuário?\n", "Confirmar", JOptionPane.YES_NO_OPTION) == 0) {
+                    conU.desativarUsuario(u);
+                    JOptionPane.showMessageDialog(null, "Usuário desativado com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Não é possível desativar usuário administrador!", "Erro!", JOptionPane.ERROR_MESSAGE);
+            }
+            tabela();
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione um item da tabela primeiro!", "Atenção!", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btDesativarActionPerformed
 
     /**

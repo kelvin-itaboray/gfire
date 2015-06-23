@@ -152,6 +152,8 @@ public class Login extends javax.swing.JFrame {
         if (usuario != null) {
             cU.logar(usuario);
             princ.lbUsuario.setText(usuario.getNome());
+            if(usuario.getIdUsuario() != 1)
+                princ.btUsuario.setVisible(false);
             princ.setVisible(true);
             this.dispose();
         } else {

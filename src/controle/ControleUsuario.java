@@ -32,7 +32,7 @@ public class ControleUsuario {
     }
 
     public boolean alterarUsuario(Usuario altUsuario) {
-        String SQL = "UPDATE usuario SET nome = ?, senha = ?, telefone = ?, statusU = ? "
+        String SQL = "UPDATE usuario SET nome = ?, senha = ?, telefone = ?"
                 + "WHERE idUsuario = ?";
         Connection conn = null;
         PreparedStatement pst = null;
@@ -42,7 +42,6 @@ public class ControleUsuario {
             pst.setString(1, altUsuario.getNome());
             pst.setString(2, altUsuario.getSenha());
             pst.setString(3, altUsuario.getTelefone());
-            pst.setBoolean(4, altUsuario.isStatus());
             pst.setInt(5, altUsuario.getIdUsuario());
             pst.executeUpdate();
         } catch (SQLException e) {
@@ -68,7 +67,23 @@ public class ControleUsuario {
         JOptionPane.showMessageDialog(null, "Usuário removido com sucesso!", "Remover", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
-
+    
+    public boolean desativarUsuario(Usuario altUsuario) {
+        String SQL = "UPDATE usuario SET statusU = 0 WHERE idUsuario = ?";
+        Connection conn = null;
+        PreparedStatement pst = null;
+        try {
+            conn = Conexao.getConexao();
+            pst = conn.prepareStatement(SQL);
+            pst.setInt(1, altUsuario.getIdUsuario());
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro na conexão ao alterar: " + e.getMessage(), "ERRO", 0);
+            return false;
+        }
+        return true;
+    }
+    
     public ArrayList<Usuario> getUsuarios() {
         String SQL = "SELECT idUsuario, nome, senha, telefone, statusU, isAdmin FROM usuario WHERE statusU = 1";
         Connection conn;
@@ -167,6 +182,11 @@ public class ControleUsuario {
             }
         }
         return user;
+    }
+    
+    public boolean validarUsuario(Usuario u){
+        Validar v = new Validar();
+        return v.validaNome(u.getNome()) && v.validaCampoFormatado(u.getSenha()) && v.validaNumero(u.getTelefone());
     }
     
     public void logar(Usuario logado){

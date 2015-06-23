@@ -3,20 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package modelo;
+
+import controle.Validar;
 
 /**
  *
  * @author Kelvin
  */
 public class Usuario {
+
     private int idUsuario;
     private String nome;
     private String senha;
     private String telefone;
     private boolean status;
     private boolean isAdmin;
+    Validar v = new Validar();
 
     /**
      * @return the idUsuario
