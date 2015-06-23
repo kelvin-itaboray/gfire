@@ -6,6 +6,7 @@
 package visao;
 
 import controle.ControleConta;
+import controle.ControleUsuario;
 import javax.swing.JOptionPane;
 import modelo.Conta;
 
@@ -206,16 +207,17 @@ public class ContaCadastro extends javax.swing.JFrame {
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
         ControleConta cConta = new ControleConta();
+        ControleUsuario cU = new ControleUsuario();
         Conta conta = new Conta();
-
+        conta.setNome(txtConta.getText());
+        conta.setValor(Double.parseDouble(ftxtValor.getText().replace(',', '.')));
+        conta.setDataVencimentoFormatado(txtData.getText());
+        conta.setIdUsuario(cU.getLogado().getIdUsuario());
+        cConta.adicionarConta(conta);
         if (rbVariavel.isSelected()) {
-            conta.setTipo(txtConta.getText());
-            conta.setValor(Double.parseDouble(ftxtValor.getText().replace(',', '.')));
-            conta.setDataVencimento(txtData.getText());
-            cConta.adicionarConta(conta);
+            conta.setIsFixo(false);
         } else if (rbFixo.isSelected()) {
-            JOptionPane.showMessageDialog(null, "Não sei o que fazer!");
-            System.exit(1);
+            conta.setIsFixo(true);
         } else {
             JOptionPane.showMessageDialog(null, "Informe um tipo de conta!");
         }

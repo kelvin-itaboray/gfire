@@ -14,7 +14,6 @@ import modelo.Usuario;
  */
 public class Principal extends javax.swing.JFrame {
 
-    public static Usuario logado;
     UsuarioPrincipal u = null;
     ContaPrincipal c = null;
     ContaPrincipal h = null;

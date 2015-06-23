@@ -3,21 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package modelo;
+
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Kelvin
  */
 public class Conta {
+
     private int idConta;
     private int idUsuario;
-    private int idContaFixa;
-    private String tipo;
+    private String nome;
     private double valor;
     private String dataVencimento;
     private boolean pago;
+    private boolean isFixo;
 
     /**
      * @return the idConta
@@ -36,15 +38,15 @@ public class Conta {
     /**
      * @return the tipo
      */
-    public String getTipo() {
-        return tipo;
+    public String getNome() {
+        return nome;
     }
 
     /**
-     * @param tipo the tipo to set
+     * @param nome the tipo to set
      */
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     /**
@@ -68,11 +70,19 @@ public class Conta {
         return dataVencimento;
     }
 
+    public String getDataVencimentoFormatado() {
+        return dataVencimento.substring(8, 10) + "/" + dataVencimento.substring(5, 7) + "/" + dataVencimento.substring(0, 4);
+    }
+
     /**
      * @param dataVencimento the dataVencimento to set
      */
     public void setDataVencimento(String dataVencimento) {
         this.dataVencimento = dataVencimento;
+    }
+    
+    public void setDataVencimentoFormatado(String dataVencimento) {
+        this.dataVencimento = dataVencimento.substring(6, 10) + "-" + dataVencimento.substring(3, 5) + "-" + dataVencimento.substring(0, 2);
     }
 
     /**
@@ -104,16 +114,16 @@ public class Conta {
     }
 
     /**
-     * @return the idContaFixa
+     * @return the isFixo
      */
-    public int getIdContaFixa() {
-        return idContaFixa;
+    public boolean isIsFixo() {
+        return isFixo;
     }
 
     /**
-     * @param idContaFixa the idContaFixa to set
+     * @param isFixo the isFixo to set
      */
-    public void setIdContaFixa(int idContaFixa) {
-        this.idContaFixa = idContaFixa;
+    public void setIsFixo(boolean isFixo) {
+        this.isFixo = isFixo;
     }
 }

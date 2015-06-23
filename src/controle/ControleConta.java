@@ -21,17 +21,19 @@ import modelo.Conta;
 public class ControleConta {
 
         public boolean adicionarConta(Conta cadConta) {
-        String SQL = "INSERT INTO conta (tipo, valor, dataVencimento) "
-                    + "VALUES(?, ?, ?)";
+        String SQL = "INSERT INTO conta (idUsuario, nome, valor, dataVencimento, isFixo) "
+                    + "VALUES(?, ?, ?, ?, ?)";
         
         Connection conn = null;
         PreparedStatement pst = null;
         try {
             conn = Conexao.getConexao();
             pst = conn.prepareStatement(SQL);
-            pst.setString(1, cadConta.getTipo());
-            pst.setDouble(2, cadConta.getValor());
-            pst.setString(3, cadConta.getDataVencimento());
+            pst.setInt(1, cadConta.getIdUsuario());
+            pst.setString(2, cadConta.getNome());
+            pst.setDouble(3, cadConta.getValor());
+            pst.setString(4, cadConta.getDataVencimento());
+            pst.setBoolean(5, cadConta.isIsFixo());
             pst.executeUpdate();
             pst = null;
         } catch (SQLException e) {
@@ -42,18 +44,20 @@ public class ControleConta {
     }
     
     public boolean alterarConta(Conta altConta) {
-        String SQL = "UPDATE conta SET idUsuario = ?, idContaFixa = ?, tipo = ?, valor = ? "
-                   + "dataVencimento = ? WHERE idConta = ?";
+        String SQL = "UPDATE conta SET idUsuario = ?, nome = ?, valor = ? "
+                   + "dataVencimento = ?, pago = ?, isFixo = ? WHERE idConta = ?";
         Connection conn = null;
         PreparedStatement pst = null;
         try {
             conn = Conexao.getConexao();
             pst = conn.prepareStatement(SQL);
             pst.setInt (1, altConta.getIdUsuario());
-            pst.setInt (2, altConta.getIdContaFixa());
-            pst.setString(3, altConta.getTipo());
-            pst.setDouble(4, altConta.getValor());
-            pst.setString(5, altConta.getDataVencimento());
+            pst.setString(2, altConta.getNome());
+            pst.setDouble(3, altConta.getValor());
+            pst.setString(4, altConta.getDataVencimento());
+            pst.setBoolean(5, altConta.isPago());
+            pst.setBoolean(6, altConta.isIsFixo());
+            pst.setInt(7, altConta.getIdConta());
             pst.executeUpdate();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro na conexão ao alterar: " + e.getMessage(), "ERRO", 0);
@@ -80,8 +84,7 @@ public class ControleConta {
     }
     
     public ArrayList <Conta> getConta() {
-    
-        String SQL = "SELECT idConta, idUsuario, idContaFixa, tipo, valor, dataVencimento FROM conta";
+        String SQL = "SELECT idConta, idUsuario, nome, valor, dataVencimento, pago, isFixo FROM conta";
         
         Connection conn;
         PreparedStatement pst = null;
@@ -96,10 +99,11 @@ public class ControleConta {
                 Conta ct = new Conta();
                 ct.setIdConta(tabela.getInt(1));
                 ct.setIdUsuario(tabela.getInt(2));
-                ct.setIdContaFixa(tabela.getInt(3));
-                ct.setTipo(tabela.getString(4));
-                ct.setValor(tabela.getDouble(5));
-                ct.setDataVencimento(tabela.getString(6));
+                ct.setNome(tabela.getString(3));
+                ct.setValor(tabela.getDouble(4));
+                ct.setDataVencimento(tabela.getString(5));
+                ct.setPago(tabela.getBoolean(6));
+                ct.setIsFixo(tabela.getBoolean(7));
                 conta.add(ct);
             }
         } catch (SQLException e) {
@@ -117,7 +121,7 @@ public class ControleConta {
     }
     
     public Conta getConta(int id) {
-        String SQL = "SELECT idConta, idUsuario, idContaFixa, tipo, valor, dataVencimento"
+        String SQL = "SELECT idConta, idUsuario, nome, valor, dataVencimento, pago, isFixo"
                    + "FROM conta WHERE idConta = " + id;
         Connection conn;
         PreparedStatement pst = null;
@@ -131,10 +135,11 @@ public class ControleConta {
                 conta = new Conta();
                 conta.setIdConta(tabela.getInt(1));
                 conta.setIdUsuario(tabela.getInt(2));
-                conta.setIdContaFixa(tabela.getInt(3));
-                conta.setTipo(tabela.getString(4));
-                conta.setValor(tabela.getDouble(5));
-                conta.setDataVencimento(tabela.getString(6));
+                conta.setNome(tabela.getString(3));
+                conta.setValor(tabela.getDouble(4));
+                conta.setDataVencimento(tabela.getString(5));
+                conta.setPago(tabela.getBoolean(6));
+                conta.setIsFixo(tabela.getBoolean(7));
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro na conexão ao consultar: " + e.getMessage(), "ERRO", 0);

@@ -10,7 +10,8 @@ import modelo.Usuario;
  * @author Carlosmcdo
  */
 public class ControleUsuario {
-
+    public static Usuario logado;
+    
     public boolean adicionarUsuario(Usuario cadUsuario) {
         String SQL = "INSERT INTO usuario (nome,senha,telefone) VALUES(?, ?, ?)";
         Connection conn = null;
@@ -69,7 +70,7 @@ public class ControleUsuario {
     }
 
     public ArrayList<Usuario> getUsuarios() {
-        String SQL = "SELECT idUsuario, nome, senha, telefone, statusU, isAdmin FROM usuario";
+        String SQL = "SELECT idUsuario, nome, senha, telefone, statusU, isAdmin FROM usuario WHERE statusU = 1";
         Connection conn;
         PreparedStatement pst = null;
         ResultSet tabela;
@@ -136,7 +137,7 @@ public class ControleUsuario {
     }
 
     public Usuario getUsuarioByLogin(String nome, String senha) {
-        String SQL = "SELECT idUsuario, nome, senha, telefone, statusU, isAdmin FROM usuario WHERE nome = '" + nome + "' AND senha = '" + senha + "'";
+        String SQL = "SELECT idUsuario, nome, senha, telefone, statusU, isAdmin FROM usuario WHERE nome = '" + nome + "' AND senha = '" + senha + "' AND statusU = 1";
         Connection conn;
         PreparedStatement pst = null;
         ResultSet tabela;
@@ -166,5 +167,13 @@ public class ControleUsuario {
             }
         }
         return user;
+    }
+    
+    public void logar(Usuario logado){
+        ControleUsuario.logado = logado;
+    }
+    
+    public Usuario getLogado(){
+        return ControleUsuario.logado;
     }
 }

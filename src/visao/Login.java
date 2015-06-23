@@ -150,7 +150,7 @@ public class Login extends javax.swing.JFrame {
         Usuario usuario = cU.getUsuarioByLogin(login, senha);
 
         if (usuario != null) {
-            Principal.logado = usuario;
+            cU.logar(usuario);
             princ.lbUsuario.setText(usuario.getNome());
             princ.setVisible(true);
             this.dispose();

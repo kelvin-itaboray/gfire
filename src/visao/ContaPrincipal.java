@@ -42,13 +42,17 @@ public class ContaPrincipal extends javax.swing.JDialog {
         Date data = new Date(System.currentTimeMillis());
 
         for (int i = 0; i < c.size(); i++) {
-            String v[] = new String[3];
-            v[0] = c.get(i).getTipo();
+            String v[] = new String[6];
+            v[0] = c.get(i).getNome();
             v[1] = c.get(i).getIdUsuario() + "";
             v[2] = c.get(i).getValor() + "";
-            v[3] = c.get(i).getDataVencimento();
+            v[3] = c.get(i).getDataVencimentoFormatado();
             v[4] = String.valueOf(data);
-            v[5] = "Não se sabe";
+            if(c.get(i).isPago()){
+                v[5] = "Pago";
+            }else{
+                v[5] = "Não pago!";
+            }
             modelo.addRow(v);
         }
     }
