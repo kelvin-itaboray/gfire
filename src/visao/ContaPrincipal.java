@@ -6,11 +6,14 @@
 package visao;
 
 import controle.ControleConta;
+import controle.ControleUsuario;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Conta;
+import modelo.Usuario;
 
 /**
  *
@@ -21,8 +24,6 @@ public class ContaPrincipal extends javax.swing.JDialog {
     /**
      * Creates new form Usuario
      */
-    ContaCadastro cC = null;
-
     public ContaPrincipal(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -31,8 +32,9 @@ public class ContaPrincipal extends javax.swing.JDialog {
 
     public void tabela() {
         ControleConta conC = new ControleConta();
-        ArrayList<Conta> c = conC.getConta();
-
+        ControleUsuario conU = new ControleUsuario();
+        ArrayList<Conta> c = conC.getContas();
+        Usuario u = new Usuario();
         DefaultTableModel modelo = (DefaultTableModel) tbConta.getModel();
         int t = modelo.getRowCount();
         for (int i = 0; i < t; i++) {
@@ -42,16 +44,18 @@ public class ContaPrincipal extends javax.swing.JDialog {
         Date data = new Date(System.currentTimeMillis());
 
         for (int i = 0; i < c.size(); i++) {
-            String v[] = new String[6];
-            v[0] = c.get(i).getNome();
-            v[1] = c.get(i).getIdUsuario() + "";
-            v[2] = "R$:"+c.get(i).getValor();
-            v[3] = c.get(i).getDataVencimentoFormatado();
-            v[4] = String.valueOf(data);
-            if(c.get(i).isPago()){
-                v[5] = "Pago";
-            }else{
-                v[5] = "Não pago!";
+            String v[] = new String[7];
+            v[0] = c.get(i).getIdConta() + "";
+            v[1] = c.get(i).getNome();
+            u = conU.getUsuario(c.get(i).getIdUsuario());
+            v[2] = u.getNome();
+            v[3] = "R$:" + c.get(i).getValor();
+            v[4] = c.get(i).getDataVencimentoFormatado();
+            v[5] = String.valueOf(data);
+            if (c.get(i).isPago()) {
+                v[6] = "Pago";
+            } else {
+                v[6] = "Pendente";
             }
             modelo.addRow(v);
         }
@@ -116,7 +120,7 @@ public class ContaPrincipal extends javax.swing.JDialog {
             }
         });
 
-        btDesativar.setText("Desativar");
+        btDesativar.setText("Remover");
         btDesativar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btDesativar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,14 +153,14 @@ public class ContaPrincipal extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Conta", "Responsável", "Valor", "Vencimento", "Data Pagamento", "Status"
+                "ID", "Conta", "Responsável", "Valor", "Vencimento", "Data Pagamento", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -171,11 +175,13 @@ public class ContaPrincipal extends javax.swing.JDialog {
         spConta.setViewportView(tbConta);
         if (tbConta.getColumnModel().getColumnCount() > 0) {
             tbConta.getColumnModel().getColumn(0).setResizable(false);
+            tbConta.getColumnModel().getColumn(0).setPreferredWidth(5);
             tbConta.getColumnModel().getColumn(1).setResizable(false);
             tbConta.getColumnModel().getColumn(2).setResizable(false);
             tbConta.getColumnModel().getColumn(3).setResizable(false);
             tbConta.getColumnModel().getColumn(4).setResizable(false);
             tbConta.getColumnModel().getColumn(5).setResizable(false);
+            tbConta.getColumnModel().getColumn(6).setResizable(false);
         }
 
         javax.swing.GroupLayout pContaLayout = new javax.swing.GroupLayout(pConta);
@@ -263,21 +269,59 @@ public class ContaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_btRelatorioAActionPerformed
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
+        ContaCadastro cC = new ContaCadastro();
         JDialog cCD = new JDialog(cC, rootPaneCheckingEnabled);
-        cC = new ContaCadastro();
+        cC.tipo = 0;
         cCD.setBounds(cC.getBounds());
         cCD.add(cC.getContentPane());
         cCD.setTitle("Cadastrar Conta");
         cCD.setResizable(false);
         cCD.setVisible(true);
+        tabela();
     }//GEN-LAST:event_btCadastrarActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-        // TODO add your handling code here:
+        if (tbConta.getSelectedRow() != -1) {
+            ControleConta conC = new ControleConta();
+            Conta c = conC.getConta(Integer.parseInt(tbConta.getValueAt(tbConta.getSelectedRow(), 0) + ""));
+            ContaCadastro cC = new ContaCadastro();
+
+            cC.tipo = c.getIdConta();
+            cC.txtConta.setText(c.getNome());
+            cC.ftxtValor.setText(c.getValor() + "");
+            cC.txtData.setText(c.getDataVencimentoFormatado());
+            cC.lbTitulo.setText("Alterar Conta");
+            cC.btCadastrar.setText("Alterar");
+            if (c.isIsFixo()) {
+                cC.rbFixo.setSelected(true);
+            } else {
+                cC.rbVariavel.setSelected(true);
+            }
+            JDialog cUD = new JDialog(cC, rootPaneCheckingEnabled);
+            cUD.setBounds(cC.getBounds());
+            cUD.add(cC.getContentPane());
+            cUD.setTitle("Alterar Conta");
+            cUD.setResizable(false);
+            cUD.setVisible(true);
+
+            tabela();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um item da tabela primeiro!", "Atenção!", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btDesativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDesativarActionPerformed
-        // TODO add your handling code here:
+        if (tbConta.getSelectedRow() != -1) {
+            ControleConta conC = new ControleConta();
+            Conta c = conC.getConta(Integer.parseInt(tbConta.getValueAt(tbConta.getSelectedRow(), 0) + ""));
+            if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover esta conta?\n", "Confirmar", JOptionPane.YES_NO_OPTION) == 0) {
+                conC.removerConta(c);
+                JOptionPane.showMessageDialog(null, "Conta removida com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+            }
+            tabela();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um item da tabela primeiro!", "Atenção!", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btDesativarActionPerformed
 
     private void btPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPagarActionPerformed
@@ -285,7 +329,25 @@ public class ContaPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_btPagarActionPerformed
 
     private void btDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDetalhesActionPerformed
-        // TODO add your handling code here:
+        if (tbConta.getSelectedRow() != -1) {
+            ContaDetalhes cD = new ContaDetalhes();
+            JDialog cDD = new JDialog(cD, rootPaneCheckingEnabled);
+            
+            ControleConta conC = new ControleConta();
+            Conta c = conC.getConta(Integer.parseInt(tbConta.getValueAt(tbConta.getSelectedRow(), 0) + ""));
+
+            cD.txtConta.setText(c.getNome());
+            cD.ftxtValor.setText(c.getValor() + "");
+            cD.txtData.setText(c.getDataVencimentoFormatado());
+            
+            cDD.setBounds(cD.getBounds());
+            cDD.add(cD.getContentPane());
+            cDD.setTitle("Detalhes da Conta");
+            cDD.setResizable(false);
+            cDD.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um item da tabela primeiro!", "Atenção!", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btDetalhesActionPerformed
 
     /**

@@ -20,7 +20,7 @@ import modelo.Conta;
  */
 public class ControleConta {
 
-        public boolean adicionarConta(Conta cadConta) {
+        public boolean adicionarConta(Conta conta) {
         String SQL = "INSERT INTO conta (idUsuario, nome, valor, dataVencimento, isFixo) "
                     + "VALUES(?, ?, ?, ?, ?)";
         
@@ -29,11 +29,11 @@ public class ControleConta {
         try {
             conn = Conexao.getConexao();
             pst = conn.prepareStatement(SQL);
-            pst.setInt(1, cadConta.getIdUsuario());
-            pst.setString(2, cadConta.getNome());
-            pst.setDouble(3, cadConta.getValor());
-            pst.setString(4, cadConta.getDataVencimento());
-            pst.setBoolean(5, cadConta.isIsFixo());
+            pst.setInt(1, conta.getIdUsuario());
+            pst.setString(2, conta.getNome());
+            pst.setDouble(3, conta.getValor());
+            pst.setString(4, conta.getDataVencimento());
+            pst.setBoolean(5, conta.isIsFixo());
             pst.executeUpdate();
             pst = null;
         } catch (SQLException e) {
@@ -44,20 +44,18 @@ public class ControleConta {
     }
     
     public boolean alterarConta(Conta altConta) {
-        String SQL = "UPDATE conta SET idUsuario = ?, nome = ?, valor = ? "
-                   + "dataVencimento = ?, pago = ?, isFixo = ? WHERE idConta = ?";
+        String SQL = "UPDATE conta SET nome = ?, valor = ?, "
+                   + "dataVencimento = ?, isFixo = ? WHERE idConta = ?";
         Connection conn = null;
         PreparedStatement pst = null;
         try {
             conn = Conexao.getConexao();
             pst = conn.prepareStatement(SQL);
-            pst.setInt (1, altConta.getIdUsuario());
-            pst.setString(2, altConta.getNome());
-            pst.setDouble(3, altConta.getValor());
-            pst.setString(4, altConta.getDataVencimento());
-            pst.setBoolean(5, altConta.isPago());
-            pst.setBoolean(6, altConta.isIsFixo());
-            pst.setInt(7, altConta.getIdConta());
+            pst.setString(1, altConta.getNome());
+            pst.setDouble(2, altConta.getValor());
+            pst.setString(3, altConta.getDataVencimento());
+            pst.setBoolean(4, altConta.isIsFixo());
+            pst.setInt(5, altConta.getIdConta());
             pst.executeUpdate();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro na conexão ao alterar: " + e.getMessage(), "ERRO", 0);
@@ -66,24 +64,23 @@ public class ControleConta {
         return true;
     }
     
-    public boolean removerConta(Conta remConta) {
+    public boolean removerConta(Conta conta) {
         String SQL = "DELETE FROM conta WHERE idConta = ?";
         Connection conn = null;
         PreparedStatement pst = null;
         try {
             conn = Conexao.getConexao();
             pst = conn.prepareStatement(SQL);
-            pst.setInt(1, remConta.getIdConta());
+            pst.setInt(1, conta.getIdConta());
             pst.executeUpdate();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao deletar! Conta atualmente está pendente!", "ERRO", 0);
             return false;
         }
-        JOptionPane.showMessageDialog(null, "Conta removido com sucesso!", "Remover", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
     
-    public ArrayList <Conta> getConta() {
+    public ArrayList <Conta> getContas() {
         String SQL = "SELECT idConta, idUsuario, nome, valor, dataVencimento, pago, isFixo FROM conta";
         
         Connection conn;
@@ -121,7 +118,7 @@ public class ControleConta {
     }
     
     public Conta getConta(int id) {
-        String SQL = "SELECT idConta, idUsuario, nome, valor, dataVencimento, pago, isFixo"
+        String SQL = "SELECT idConta, idUsuario, nome, valor, dataVencimento, pago, isFixo "
                    + "FROM conta WHERE idConta = " + id;
         Connection conn;
         PreparedStatement pst = null;
@@ -153,5 +150,10 @@ public class ControleConta {
             }
         }
         return conta;
+    }
+    
+    public boolean validarConta(Conta c){
+        Validar v = new Validar();
+        return v.validaNome(c.getNome()) && v.validaQuantia(c.getValor()+"") && v.validaDataDepoisHoje(c.getDataVencimento());
     }
 }

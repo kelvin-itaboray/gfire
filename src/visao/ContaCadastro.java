@@ -16,6 +16,8 @@ import modelo.Conta;
  */
 public class ContaCadastro extends javax.swing.JFrame {
 
+    public int tipo;
+
     /**
      * Creates new form ContaCadastro
      */
@@ -99,6 +101,7 @@ public class ContaCadastro extends javax.swing.JFrame {
         lbValor1.setPreferredSize(new java.awt.Dimension(28, 20));
 
         bgTipo.add(rbFixo);
+        rbFixo.setSelected(true);
         rbFixo.setText("Fixo");
         rbFixo.setPreferredSize(new java.awt.Dimension(93, 20));
         rbFixo.addActionListener(new java.awt.event.ActionListener() {
@@ -124,10 +127,10 @@ public class ContaCadastro extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(pContaCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pContaCadastroLayout.createSequentialGroup()
-                        .addComponent(txtFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtFoto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pContaCadastroLayout.createSequentialGroup()
                         .addGroup(pContaCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,17 +212,30 @@ public class ContaCadastro extends javax.swing.JFrame {
         ControleConta cConta = new ControleConta();
         ControleUsuario cU = new ControleUsuario();
         Conta conta = new Conta();
+
         conta.setNome(txtConta.getText());
         conta.setValor(Double.parseDouble(ftxtValor.getText().replace(',', '.')));
-        conta.setDataVencimentoFormatado(txtData.getText());
+        conta.setDataVencimento(txtData.getText());
         conta.setIdUsuario(cU.getLogado().getIdUsuario());
-        cConta.adicionarConta(conta);
-        if (rbVariavel.isSelected()) {
-            conta.setIsFixo(false);
-        } else if (rbFixo.isSelected()) {
-            conta.setIsFixo(true);
+        if (cConta.validarConta(conta)) {
+            conta.setDataVencimentoFormatado(txtData.getText());
+            if (rbVariavel.isSelected()) {
+                conta.setIsFixo(false);
+            } else if (rbFixo.isSelected()) {
+                conta.setIsFixo(true);
+            }
+            if (tipo == 0) {
+                cConta.adicionarConta(conta);
+                JOptionPane.showMessageDialog(null, "Conta cadastrada com sucesso!");
+            }else {
+                conta.setIdConta(tipo);
+                cConta.alterarConta(conta);
+                JOptionPane.showMessageDialog(null, "Conta alterada com sucesso!");
+            }
+            dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "Informe um tipo de conta!");
+            JOptionPane.showMessageDialog(null, "Existem campos inválidos!",
+                    "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btCadastrarActionPerformed
 
@@ -270,21 +286,21 @@ public class ContaCadastro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgTipo;
-    private javax.swing.JButton btCadastrar;
+    public javax.swing.JButton btCadastrar;
     private javax.swing.JButton btFoto;
-    private javax.swing.JFormattedTextField ftxtValor;
+    public javax.swing.JFormattedTextField ftxtValor;
     private javax.swing.JLabel lbConta;
     private javax.swing.JLabel lbData;
     private javax.swing.JLabel lbFoto;
     private javax.swing.JLabel lbImagem;
-    private javax.swing.JLabel lbTitulo;
+    public javax.swing.JLabel lbTitulo;
     private javax.swing.JLabel lbValor;
     private javax.swing.JLabel lbValor1;
     private javax.swing.JPanel pContaCadastro;
-    private javax.swing.JRadioButton rbFixo;
-    private javax.swing.JRadioButton rbVariavel;
-    private javax.swing.JTextField txtConta;
-    private javax.swing.JTextField txtData;
+    public javax.swing.JRadioButton rbFixo;
+    public javax.swing.JRadioButton rbVariavel;
+    public javax.swing.JTextField txtConta;
+    public javax.swing.JTextField txtData;
     private javax.swing.JTextField txtFoto;
     // End of variables declaration//GEN-END:variables
 }

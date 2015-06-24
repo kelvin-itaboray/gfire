@@ -59,6 +59,7 @@ public class Login extends javax.swing.JFrame {
 
         txtLogin.setToolTipText("");
 
+        btEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gfire/imagem/check.png"))); // NOI18N
         btEntrar.setText("Entrar");
         btEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,7 +67,9 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        btSair.setText("Sair");
+        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gfire/imagem/logout.png"))); // NOI18N
+        btSair.setText("  Sair");
+        btSair.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSairActionPerformed(evt);
@@ -74,6 +77,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         lbImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/gfire/imagem/portrait_48px.png"))); // NOI18N
 
         javax.swing.GroupLayout pLayout = new javax.swing.GroupLayout(p);
         p.setLayout(pLayout);
